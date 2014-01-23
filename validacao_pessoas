@@ -1,3 +1,4 @@
+
 <?php
 
 function validaPessoa($nome, $cpf, $nascimento, $sexo, $estado, $telefone, $observacoes){
@@ -6,35 +7,27 @@ function validaPessoa($nome, $cpf, $nascimento, $sexo, $estado, $telefone, $obse
     
     $nome = trim($nome);
     if(empty($nome)){
-        echo "Por favor Preencha Todos os Campos <br/> ";
+        echo "Por favor Preencha o Campo Nome <br/> ";
         $formValido= false;
         echo "<br/>";
     }
-
-    
-    if (!preg_match ("/^[a-zA-ZãÃáÁàÀêÊéÉèÈíÍìÌôÔõÕóÓòÒúÚùÙûÛçÇ\s]+$/", $nome)){
+    else if (!preg_match ("/^[a-zA-ZãÃáÁàÀêÊéÉèÈíÍìÌôÔõÕóÓòÒúÚùÙûÛçÇ\s]+$/", $nome)){
         echo "Formato iválido para o Campo Nome";
         $formValido = false;
         echo "<br/>";
     }
    
    $telefone = trim($telefone);
-   
     if(empty($telefone)){
         echo "O Campo Telefone é Obrigatório <br/> ";
         $formValidados = false;
     }
     if(!preg_match("/^\d{4}-\d{4}$/", $telefone) and
        (!preg_match("/^\d{3}?\s\d{4}\\-\d{4}$/" , $telefone))){
-        echo "Formato inválido para o campo telefone";
+        echo "Formato inválido para o campo telefone <br/> ";
         $formValidos = false;
     }
-    
-    if ($estado == -1){
-        echo"Por favor,selecione o Estado <br/>";
-        $formValido = false;
-    }
-    
+     
     $cpf = trim ($cpf);
     
     if(empty($cpf)){
@@ -56,9 +49,14 @@ function validaPessoa($nome, $cpf, $nascimento, $sexo, $estado, $telefone, $obse
     
     $observacoes = trim($observacoes);
     if(empty($observacoes)){
-        echo "O campo  é obrigatório <br/> ";
+        echo "O campo observacoes é obrigatório <br/> ";
         $formValido= false;
-        
+    }
+    
+     else if (!preg_match ("/^[a-zA-ZãÃáÁàÀêÊéÉèÈíÍìÌôÔõÕóÓòÒúÚùÙûÛçÇ\s\\,\\.]+$/", $observacoes)){
+        echo "Formato iválido para o Campo observacoes";
+        $formValido = false;
+        echo "<br/>";
     }
        
         $nascimento = trim($nascimento);
