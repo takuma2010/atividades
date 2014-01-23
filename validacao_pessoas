@@ -1,0 +1,106 @@
+<?php
+
+function validaPessoa($nome, $cpf, $nascimento, $sexo, $estado, $telefone, $observacoes){
+    
+    $formValido = true;
+    
+    $nome = trim($nome);
+    if(empty($nome)){
+        echo "Por favor Preencha Todos os Campos <br/> ";
+        $formValido= false;
+        echo "<br/>";
+    }
+
+    
+    if (!preg_match ("/^[a-zA-ZãÃáÁàÀêÊéÉèÈíÍìÌôÔõÕóÓòÒúÚùÙûÛçÇ\s]+$/", $nome)){
+        echo "Formato iválido para o Campo Nome";
+        $formValido = false;
+        echo "<br/>";
+    }
+   
+   $telefone = trim($telefone);
+   
+    if(empty($telefone)){
+        echo "O Campo Telefone é Obrigatório <br/> ";
+        $formValidados = false;
+    }
+    if(!preg_match("/^\d{4}-\d{4}$/", $telefone) and
+       (!preg_match("/^\d{3}?\s\d{4}\\-\d{4}$/" , $telefone))){
+        echo "Formato inválido para o campo telefone";
+        $formValidos = false;
+    }
+    
+    if ($estado == -1){
+        echo"Por favor,selecione o Estado <br/>";
+        $formValido = false;
+    }
+    
+    $cpf = trim ($cpf);
+    
+    if(empty($cpf)){
+        echo "O campo CPF é obrigatório <br/> ";
+        $formValido = false;
+    }
+     
+     else if (!preg_match("/^\d{3}\\.\d{3}\\.\d{3}\\-\d{2}$/", $cpf)){
+        echo "Formato inválido para o campo cpf <br/>";
+        $formValido = false;
+    }
+    
+    $estado = trim ($estado);
+    
+     if($estado ==-1){
+	echo "Por favor,selecione uma opção de Estado <br/>";
+	$formValido = false;
+    }
+    
+    $observacoes = trim($observacoes);
+    if(empty($observacoes)){
+        echo "O campo  é obrigatório <br/> ";
+        $formValido= false;
+        
+    }
+       
+        $nascimento = trim($nascimento);
+        if(empty($nascimento)){
+            echo "Por favor preencha a data <br/>";
+            $formValido = false;       
+        }
+        else if(!preg_match("/^\d{2}\\/\d{2}\\/\d{4}$/", $nascimento)){
+            echo "Formato inválido de data. Utilize o formato dd/mm/aaaa";
+            $formValido = false;               
+        }
+        else{
+            $pedacos = explode('/', $nascimento);
+            $dia = $pedacos[0];
+            $mes = $pedacos[1];
+            $ano = $pedacos[2];    
+
+            if(!checkdate($mes, $dia, $ano)){
+                echo "Data  é inválida <br/> ";
+                $formValido = false;                           
+            }
+            
+            else{
+
+                $dataYmd = $ano.$mes.$dia;
+                $dataAtual = date('Ymd');
+                
+           
+                
+             if($dataAtual < $dataYmd){
+                    echo "A data é no futuro <br/>" ;
+                    $formValido = false;
+                }
+                
+                
+               
+            }
+        }       
+    
+    return $formValido;
+}
+    
+
+
+?>
